@@ -20,7 +20,7 @@ Options:
 
   Once the config file is setup, install the requirements and test the script
   ```
-  pip3 install --user requirements.txt
+  pip3 install --user -r requirements.txt
   echo "Testing" | python3 telegram-bot-cli.py --job testing
   ```
 
@@ -43,7 +43,7 @@ Options:
   4. Go to `https://api.telegram.org/bot<bot_token>/getUpdates` and replace `<bot_token>` with yours
   5. In the JSON array, find the message/chat/id negative integer composed of 9 figures, this is your group ID
 
-  Now that you have the bot, the token, the group and the group ID, add those in the `sample-config.py` file and rename it `config.py`.
+  Now that you have the bot, the token, the group and the group ID, follow the instructions in "Quick start"
 
 # TODO
   - find a way to trigger this cli bot by grepping something in commands output. For instance, let's say I want to get notified when my `ntlmrelayx` has successfully relayed authentication during an engagement, I would grep on "SUCCESS"
