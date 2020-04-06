@@ -6,9 +6,9 @@ import config
 
 def get_options():
     parser = OptionParser()
-    parser.add_option("-j", "--job", dest="job", type="string", help="Select a job name")
-    parser.add_option("-d", "--details", dest="details", type="string", help="Add details to the job (50 characters max)")
-    parser.add_option("-u", "--username", dest="username", type="string", help="Your username if you want the bot to highlight you")
+    parser.add_option("-j", "--job", dest="job", type="string", help="select a job name (required)")
+    parser.add_option("-d", "--details", dest="details", type="string", help="add details to the job (50 characters max)")
+    parser.add_option("-u", "--username", dest="username", type="string", help="add your username if you want the bot to highlight you")
     (options, args) = parser.parse_args()
     if not options.job:
         parser.error('Job name not given')
@@ -18,6 +18,8 @@ def get_options():
     return options
 
 if __name__ == "__main__":
+    # Preparing script options
+    options = get_options()
     # We need the telegram bot token and group id to send the message. I think this check can be done more gracefully.
     try:
         if config.BOT_TOKEN == "" or not config.BOT_TOKEN:
@@ -31,8 +33,6 @@ if __name__ == "__main__":
         quit()
     # Preparing bot
     bot = telegram.Bot(token=config.BOT_TOKEN)
-    # Preparing script options
-    options = get_options()
     # Preparing simple message and adding details and/or username if needed
     message = "*[CLI Job]* the command-line job *" + options.job + "* has ended"
     if options.details:

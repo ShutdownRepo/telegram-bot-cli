@@ -2,10 +2,30 @@
   This is a command line tool I use when I want to get notified, on Telegram (on my phone), that something has finished running (on my laptop).
   For instance, let's say I'm in an engagement scanning assets and waiting for my nmap scan to finish, I can now receive a text message on Telegram from my bot.
 
+# Usage
+```
+Usage: telegram-bot-cli.py [options]
+
+Options:
+  -h, --help                          show this help message and exit
+  -j JOB, --job=JOB                   select a job name (required)
+  -d DETAILS, --details=DETAILS       add details to the job (50 characters max)
+  -u USERNAME, --username=USERNAME    your username if you want the bot to highlight you
+```
+
 # Quick start
   First of all, clone this git : `git clone https://github.com/ShutdownRepo/telegram-bot-cli`
   If you already know your bot token and the group ID in which you want to get notified, add those in the `sample-config.py` file and rename it `config.py`.
-  If you don't know these information, follow these next steps.
+  If you don't know these information, follow these steps "Full instructions".
+
+  Once the config file is setup, install the requirements and test the script
+  ```
+  pip3 install --user requirements.txt
+  echo "Testing" | python3 telegram-bot-cli.py --job testing
+  ```
+
+  If you love aliases like I do, you can something like
+  `alias telegram-bot-cli='python3 /PATH/TO/telegram-bot-cli/telegram-bot-cli.py -u username'`
 
 # Full instructions
   Create a bot and find the token
