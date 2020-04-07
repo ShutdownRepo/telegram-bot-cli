@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import telegram
-from optparse import OptionParser
 import config
+from optparse import OptionParser
 
 def get_options():
     parser = OptionParser()
@@ -17,9 +17,7 @@ def get_options():
             parser.error('Details too long')
     return options
 
-if __name__ == "__main__":
-    # Preparing script options
-    options = get_options()
+def prepare_bot():
     # We need the telegram bot token and group id to send the message. I think this check can be done more gracefully.
     try:
         if config.BOT_TOKEN == "" or not config.BOT_TOKEN:
@@ -28,16 +26,20 @@ if __name__ == "__main__":
         if config.BOT_TOKEN == "" or not config.GROUP_ID:
             print('Error: GROUP_ID is not set')
             quit()
+        return telegram.Bot(token=config.BOT_TOKEN)
     except:
         print('Error: parsing config file, BOT_TOKEN or GROUP_ID may be missing')
         quit()
-    # Preparing bot
-    bot = telegram.Bot(token=config.BOT_TOKEN)
-    # Preparing simple message and adding details and/or username if needed
+
+def send_message(bot, message):
+    bot.send_message(config.GROUP_ID, message, parse_mode=telegram.ParseMode.MARKDOWN)
+
+if __name__ == "__main__":
+    bot = prepare_bot()
+    options = get_options()
     message = "*[CLI Job]* the command-line job *" + options.job + "* has ended"
     if options.details:
         message += " (" + options.details + ")"
     if options.username:
         message += " for @" + options.username
-    # Sending message
-    bot.send_message(config.GROUP_ID, message, parse_mode=telegram.ParseMode.MARKDOWN)
+    send_message(bot, message)
