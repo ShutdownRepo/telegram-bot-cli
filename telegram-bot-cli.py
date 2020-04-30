@@ -23,7 +23,7 @@ def prepare_bot():
         if config.BOT_TOKEN == "" or not config.BOT_TOKEN:
             print('Error: BOT_TOKEN is not set')
             quit()
-        if config.BOT_TOKEN == "" or not config.GROUP_ID:
+        if config.GROUP_ID == "" or not config.GROUP_ID:
             print('Error: GROUP_ID is not set')
             quit()
         return telegram.Bot(token=config.BOT_TOKEN)
@@ -35,6 +35,7 @@ def send_message(bot, message):
     bot.send_message(config.GROUP_ID, message, parse_mode=telegram.ParseMode.MARKDOWN)
 
 if __name__ == "__main__":
+    telegram.Bot(token=config.BOT_TOKEN)
     bot = prepare_bot()
     options = get_options()
     message = "*[CLI Job]* the command-line job *" + options.job + "* has ended"
